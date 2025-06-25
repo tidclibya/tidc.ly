@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة التحكم - قاعدة البيانات السياحية ليبيا 2024</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  
+  <style>
+    :root {
+      --primary: #1a3e72;
+      --secondary: #d4af37;
+      --accent: #e63946;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #28a745;
+      --info: #17a2b8;
+      --warning: #ffc107;
+      --danger: #dc3545;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Tajawal', sans-serif;
+    }
+    
+    body {
+      background-color: #f5f7fa;
+      color: var(--dark);
+    }
+    
+    /* Header Styles */
+    .dashboard-header {
+      background: linear-gradient(135deg, var(--primary), #0d2b5a);
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 100;
+      border-bottom: 4px solid var(--secondary);
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo-container img {
+      height: 60px;
+    }
+    
+    .header-titles {
+      text-align: right;
+    }
+    
+    .header-titles h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    
+    .header-titles h2 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    
+    .header-titles h3 {
+      font-size: 1rem;
+      font-weight: 400;
+      opacity: 0.8;
+      margin-top: 0.3rem;
+    }
+    
+    .current-date {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Main Dashboard Layout */
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      min-height: 100vh;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      background: white;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+      padding: 1.5rem 0;
+    }
+    
+    .sidebar-menu {
+      list-style: none;
+    }
+    
+    .sidebar-menu li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .sidebar-menu a {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1.5rem;
+      color: var(--dark);
+      text-decoration: none;
+      transition: all 0.3s;
+      border-right: 3px solid transparent;
+    }
+    
+    .sidebar-menu a:hover, .sidebar-menu a.active {
+      background: rgba(26, 62, 114, 0.05);
+      border-right: 3px solid var(--secondary);
+      color: var(--primary);
+    }
+    
+    .sidebar-menu a i {
+      margin-left: 0.8rem;
+      font-size: 1.1rem;
+      width: 24px;
+      text-align: center;
+    }
+    
+    /* Main Content */
+    .main-content {
+      padding: 2rem;
+    }
+    
+    .dashboard-title {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .dashboard-title i {
+      color: var(--secondary);
+    }
+    
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+      border-top: 4px solid var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(26, 62, 114, 0.03), transparent);
+      z-index: 0;
+    }
+    
+    .stat-card i {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 4rem;
+      opacity: 0.1;
+      color: var(--primary);
+      z-index: 0;
+    }
+    
+    .stat-card-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .stat-card h3 {
+      color: var(--primary);
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    
+    .stat-card .stat-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-card .stat-change {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    
+    .stat-card .stat-change.positive {
+      color: var(--success);
+    }
+    
+    .stat-card .stat-change.negative {
+      color: var(--danger);
+    }
+    
+    /* Charts Section */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .chart-container {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .chart-container h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    /* Recent Activity */
+    .activity-container {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .activity-container h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .activity-list {
+      list-style: none;
+    }
+    
+    .activity-item {
+      display: flex;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+    
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(26, 62, 114, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 1rem;
+      color: var(--primary);
+    }
+    
+    .activity-content {
+      flex: 1;
+    }
+    
+    .activity-title {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    
+    .activity-time {
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+    
+    /* Animations */
+    .animate-bounce {
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(26, 62, 114, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(26, 62, 114, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(26, 62, 114, 0); }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .charts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .dashboard-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .sidebar {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+      
+      .header-titles {
+        text-align: center;
+      }
+      
+      .current-date {
+        margin-top: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Dashboard Header -->
+  <header class="dashboard-header">
+    <div class="header-content">
+      <div class="logo-container">
+        <img src="C:\Users\Osama\Desktop\dashborad\logo.png" alt=" logo.png">
+        <div class="header-titles">
+          <h1>دولة ليبيا</h1>
+          <h2>وزارة السياحة والصناعات التقليدية</h2>
+          <h3>مركز المعلومات والتوثيق السياحي</h3>
+        </div>
+      </div>
+      <div class="current-date">
+        <i class="fas fa-calendar-alt"></i>
+        <span id="current-date">جاري تحميل التاريخ...</span>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Dashboard Container -->
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> لوحة التحكم</a></li>
+        <li><a href="#"><i class="fas fa-hotel"></i> الفنادق</a></li>
+        <li><a href="#"><i class="fas fa-building"></i> الشركات السياحية</a></li>
+        <li><a href="#"><i class="fas fa-umbrella-beach"></i> القرى السياحية</a></li>
+        <li><a href="#"><i class="fas fa-water"></i> المنتجعات</a></li>
+        <li><a href="#"><i class="fas fa-hands-helping"></i> سجل الصناعات التقليدية</a></li>
+        <li><a href="#"><i class="fas fa-hands-helping"></i> المؤشرات والاحصائيات السياحية</a></li>
+        <li><a href="#"><i class="fas fa-chart-line"></i> التقارير</a></li>
+        <li><a href="#"><i class="fas fa-cog"></i> الإعدادات</a></li>
+      </ul>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="dashboard-title">
+        <i class="fas fa-chart-pie"></i>
+        قاعدة البيانات السياحية ليبيا 2024
+      </h1>
+      
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card animate__animated animate__fadeInUp">
+          <div class="stat-card-content">
+            <h3>إجمالي الفنادق</h3>
+            <div class="stat-value" id="total-hotels">336</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 12% زيادة عن العام الماضي
+            </div>
+          </div>
+          <i class="fas fa-hotel"></i>
+        </div>
+        <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card animate__animated animate__fadeInUp">
+          <div class="stat-card-content">
+            <h3>إجمالي المسافرين</h3>
+            <div class="stat-value" id="total-hotels">4 مليون ليبي واجنبي</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 24% زيادة عن العام الماضي
+            </div>
+          </div>
+          <i class="fas fa-hotel"></i>
+        </div>
+        
+        <div class="stat-card animate__animated animate__fadeInUp animate__delay-1s">
+          <div class="stat-card-content">
+            <h3>الشركات والمكاتب السياحية</h3>
+            <div class="stat-value" id="total-companies">187</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 8% زيادة عن العام الماضي
+            </div>
+          </div>
+          <i class="fas fa-building"></i>
+        </div>
+        
+        <div class="stat-card animate__animated animate__fadeInUp animate__delay-2s pulse">
+          <div class="stat-card-content">
+            <h3>القرى السياحية</h3>
+            <div class="stat-value" id="total-villages">118</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 15% زيادة عن العام الماضي
+            </div>
+          </div>
+          <i class="fas fa-umbrella-beach"></i>
+        </div>
+        
+        <div class="stat-card animate__animated animate__fadeInUp animate__delay-3s">
+          <div class="stat-card-content">
+            <h3>المنتجعات السياحية</h3>
+            <div class="stat-value" id="total-resorts">64</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 22% زيادة عن العام الماضي
+            </div>
+          </div>
+          <i class="fas fa-water"></i>
+        </div>
+        
+        <div class="stat-card animate__animated animate__fadeInUp animate__delay-1s">
+          <div class="stat-card-content">
+            <h3>الحرفيين والصناعات التقليدية</h3>
+            <div class="stat-value" id="total-craftsmen">542</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 5% زيادة عن العام الماضي
+            </div>
+          </div>
+          <i class="fas fa-hands-helping"></i>
+        </div>
+        
+        <div class="stat-card animate__animated animate__fadeInUp animate__delay-2s animate-bounce">
+          <div class="stat-card-content">
+            <h3>إجمالي عدد الأسرة الفندقية</h3>
+            <div class="stat-value" id="total-beds">24,892</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 18% زيادة عن العام الماضي
+            </div>
+          </div>
+          <i class="fas fa-bed"></i>
+        </div>
+        
+        <!-- إضافة الشركات السياحية العاملة لسنة 2024 -->
+        <div class="stat-card animate__animated animate__fadeInUp animate__delay-2s">
+          <div class="stat-card-content">
+            <h3>الشركات السياحية العاملة 2024</h3>
+            <div class="stat-value" id="total-active-companies">2,225</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> محدث لسنة 2024
+            </div>
+          </div>
+          <i class="fas fa-building"></i>
+        </div>
+      </div>
+      
+      <!-- Charts Grid -->
+      <div class="charts-grid">
+        <div class="chart-container animate__animated animate__fadeIn">
+          <h3>توزيع الفنادق حسب المدن</h3>
+          <canvas id="hotelsByCityChart"></canvas>
+        </div>
+        
+        <div class="chart-container animate__animated animate__fadeIn">
+          <h3>توزيع الفنادق حسب التصنيف</h3>
+          <canvas id="hotelsByRatingChart"></canvas>
+        </div>
+        
+        <div class="chart-container animate__animated animate__fadeIn">
+          <h3>نمو القطاع السياحي خلال 5 سنوات</h3>
+          <canvas id="tourismGrowthChart"></canvas>
+        </div>
+        
+        <div class="chart-container animate__animated animate__fadeIn">
+          <h3>توزيع القرى السياحية حسب المناطق</h3>
+          <canvas id="villagesByRegionChart"></canvas>
+        </div>
+      </div>
+      
+      <!-- Recent Activity -->
+      <div class="activity-container animate__animated animate__fadeIn">
+        <h3>أحدث التحديثات</h3>
+        <ul class="activity-list">
+          <li class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-hotel"></i>
+            </div>
+            <div class="activity-content">
+              <div class="activity-title">تم إضافة فندق جديد في طرابلس</div>
+              <div class="activity-time">منذ ساعتين</div>
+            </div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-umbrella-beach"></i>
+            </div>
+            <div class="activity-content">
+              <div class="activity-title">تحديث بيانات قرية سياحية في بنغازي</div>
+              <div class="activity-time">منذ 5 ساعات</div>
+            </div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-building"></i>
+            </div>
+            <div class="activity-content">
+              <div class="activity-title">تسجيل شركة سياحية جديدة في مصراتة</div>
+              <div class="activity-time">منذ يوم واحد</div>
+            </div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-hands-helping"></i>
+            </div>
+            <div class="activity-content">
+              <div class="activity-title">إضافة 12 حرفي جديد في قاعدة البيانات</div>
+              <div class="activity-time">منذ يومين</div>
+            </div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="activity-content">
+              <div class="activity-title">تقرير الربع الأول 2024 جاهز للتحميل</div>
+              <div class="activity-time">منذ 3 أيام</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </main>
+  </div>
+  
+  <script>
+    // Set current date
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('current-date').textContent = now.toLocaleDateString('ar-LY', options);
+    
+    // Animate stats counters
+    function animateValue(id, start, end, duration) {
+      const obj = document.getElementById(id);
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+    
+    // Start animations after page load
+    window.addEventListener('load', () => {
+      animateValue('total-hotels', 0, 336, 2000);
+      animateValue('total-companies', 0, 187, 2000);
+      animateValue('total-villages', 0, 118, 2000);
+      animateValue('total-resorts', 0, 64, 2000);
+      animateValue('total-craftsmen', 0, 542, 2000);
+      animateValue('total-beds', 0, 24892, 2000);
+      animateValue('total-active-companies', 0, 2225, 2000); // إضافة الرسم المتحرك للشركات العاملة
+    });
+    
+    // Charts
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hotels by City Chart
+      const hotelsByCityCtx = document.getElementById('hotelsByCityChart').getContext('2d');
+      const hotelsByCityChart = new Chart(hotelsByCityCtx, {
+        type: 'bar',
+        data: {
+          labels: ['طرابلس', 'بنغازي', 'مصراتة', 'سبها', 'الخمس', 'زليتن', 'غات', 'أخرى'],
+          datasets: [{
+            label: 'عدد الفنادق',
+            data: [126, 73, 31, 10, 12, 5, 3, 76],
+            backgroundColor: [
+              'rgba(26, 62, 114, 0.7)',
+              'rgba(212, 175, 55, 0.7)',
+              'rgba(230, 57, 70, 0.7)',
+              'rgba(40, 167, 69, 0.7)',
+              'rgba(23, 162, 184, 0.7)',
+              'rgba(255, 193, 7, 0.7)',
+              'rgba(220, 53, 69, 0.7)',
+              'rgba(108, 117, 125, 0.7)'
+            ],
+            borderColor: [
+              'rgba(26, 62, 114, 1)',
+              'rgba(212, 175, 55, 1)',
+              'rgba(230, 57, 70, 1)',
+              'rgba(40, 167, 69, 1)',
+              'rgba(23, 162, 184, 1)',
+              'rgba(255, 193, 7, 1)',
+              'rgba(220, 53, 69, 1)',
+              'rgba(108, 117, 125, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+              rtl: true
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+      
+      // Hotels by Rating Chart
+      const hotelsByRatingCtx = document.getElementById('hotelsByRatingChart').getContext('2d');
+      const hotelsByRatingChart = new Chart(hotelsByRatingCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['5 نجوم', '4 نجوم', '3 نجوم', 'نجمتان', 'نجمة واحدة', 'غير مصنف'],
+          datasets: [{
+            data: [3, 12, 56, 78, 92, 95],
+            backgroundColor: [
+              'rgba(212, 175, 55, 0.7)',
+              'rgba(26, 62, 114, 0.7)',
+              'rgba(40, 167, 69, 0.7)',
+              'rgba(23, 162, 184, 0.7)',
+              'rgba(255, 193, 7, 0.7)',
+              'rgba(108, 117, 125, 0.7)'
+            ],
+            borderColor: [
+              'rgba(212, 175, 55, 1)',
+              'rgba(26, 62, 114, 1)',
+              'rgba(40, 167, 69, 1)',
+              'rgba(23, 162, 184, 1)',
+              'rgba(255, 193, 7, 1)',
+              'rgba(108, 117, 125, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'right',
+              rtl: true
+            }
+          }
+        }
+      });
+      
+      // Tourism Growth Chart
+      const tourismGrowthCtx = document.getElementById('tourismGrowthChart').getContext('2d');
+      const tourismGrowthChart = new Chart(tourismGrowthCtx, {
+        type: 'line',
+        data: {
+          labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+          datasets: [
+            {
+              label: 'عدد الفنادق',
+              data: [280, 265, 290, 310, 325, 336],
+              borderColor: 'rgba(26, 62, 114, 1)',
+              backgroundColor: 'rgba(26, 62, 114, 0.1)',
+              tension: 0.3,
+              fill: true
+            },
+            {
+              label: 'عدد القرى السياحية',
+              data: [75, 80, 85, 95, 105, 118],
+              borderColor: 'rgba(212, 175, 55, 1)',
+              backgroundColor: 'rgba(212, 175, 55, 0.1)',
+              tension: 0.3,
+              fill: true
+            },
+            {
+              label: ' اذونات المزاولة الشركات السياحية',
+              data: [2230, 2245, 2230, 1750, 1850, 2225],
+              borderColor: 'rgba(230, 57, 70, 1)',
+              backgroundColor: 'rgba(230, 57, 70, 0.1)',
+              tension: 0.3,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+              rtl: true
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: false
+            }
+          }
+        }
+      });
+      
+      // Villages by Region Chart
+      const villagesByRegionCtx = document.getElementById('villagesByRegionChart').getContext('2d');
+      const villagesByRegionChart = new Chart(villagesByRegionCtx, {
+        type: 'polarArea',
+        data: {
+          labels: ['المنطقة الغربية', 'المنطقة الشرقية', 'المنطقة الجنوبية'],
+          datasets: [{
+            data: [76, 42, 0],
+            backgroundColor: [
+              'rgba(26, 62, 114, 0.7)',
+              'rgba(212, 175, 55, 0.7)',
+              'rgba(230, 57, 70, 0.7)'
+            ],
+            borderColor: [
+              'rgba(26, 62, 114, 1)',
+              'rgba(212, 175, 55, 1)',
+              'rgba(230, 57, 70, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'right',
+              rtl: true
+            }
+          }
+        }
+      });
+      
+      // Simulate real-time data updates
+      setInterval(() => {
+        // Randomly update one of the stats
+        const randomStat = Math.floor(Math.random() * 7); // زيادة العدد إلى 7 بسبب إضافة بطاقة جديدة
+        const stats = ['total-hotels', 'total-companies', 'total-villages', 'total-resorts', 'total-craftsmen', 'total-beds', 'total-active-companies'];
+        const currentValues = [336, 187, 118, 64, 542, 24892, 2225];
+        const increment = Math.floor(Math.random() * 5) + 1;
+        
+        const statElement = document.getElementById(stats[randomStat]);
+        const newValue = parseInt(statElement.textContent.replace(/,/g, '')) + increment;
+        statElement.textContent = newValue.toLocaleString();
+        
+        // Add a visual effect
+        statElement.classList.add('animate__animated', 'animate__pulse');
+        setTimeout(() => {
+          statElement.classList.remove('animate__animated', 'animate__pulse');
+        }, 1000);
+        
+      }, 5000);
+    });
+  </script>
+</body>
+</html>
