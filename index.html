@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مركز المعلومات والتوثيق السياحي - ليبيا</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0077b6;
+      --secondary: #00b4d8;
+      --dark: #023e8a;
+      --light: #f0faff;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Tajawal', sans-serif;
+    }
+    body {
+      background: #f9f9f9;
+      color: #333;
+    }
+    /* التصميم سيكون مشابهًا للكود السابق مع إضافات */
+  </style>
+</head>
+<body>
+  <!-- شريط التنقل مع قائمة dropdown -->
+  <header class="header">
+    <div class="container">
+      <a href="#" class="logo">
+        <img src="images/logo.png" alt="شعار المركز">
+      </a>
+      <nav class="navbar">
+        <ul>
+          <li><a href="#">الرئيسية</a></li>
+          <li class="dropdown">
+            <a href="#">من نحن <i class="fas fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">كلمة المدير العام</a></li>
+              <li><a href="#">الرؤية والرسالة</a></li>
+              <li><a href="#">الهيكل التنظيمي</a></li>
+            </ul>
+          </li>
+          <li><a href="#">البيانات والإحصاءات</a></li>
+          <li><a href="#">أطلس ليبيا السياحي</a></li>
+          <li><a href="#">الذكاء الاصطناعي</a></li>
+          <li><a href="#">اتصل بنا</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- القسم الرئيسي -->
+  <section class="hero">
+    <div class="container">
+      <h1>مركز المعلومات والتوثيق السياحي</h1>
+      <p>نحو تحول رقمي للقطاع السياحي في ليبيا</p>
+      <a href="#" class="btn">استكشف الخدمات</a>
+    </div>
+  </section>
+
+  <!-- قسم الخريطة السياحية -->
+  <section class="map-section">
+    <div class="container">
+      <h2 class="section-title">أطلس ليبيا السياحي</h2>
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=...ليبيا" allowfullscreen></iframe>
+        <div class="map-links">
+          <a href="#"><i class="fas fa-archway"></i> المواقع الأثرية</a>
+          <a href="#"><i class="fas fa-tree"></i> السياحة البيئية</a>
+          <a href="#"><i class="fas fa-hotel"></i> خدمات الزوار</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- قسم خريطة الموقع -->
+  <section class="sitemap">
+    <div class="container">
+      <h2 class="section-title">خريطة الموقع</h2>
+      <div class="sitemap-grid">
+        <!-- ستظهر هنا هيكلية الموقع كاملة -->
+        <div class="sitemap-column">
+          <h3>عن المركز</h3>
+          <ul>
+            <li><a href="#">كلمة المدير العام</a></li>
+            <li><a href="#">الرؤية والرسالة</a></li>
+            <li><a href="#">فريق العمل</a></li>
+          </ul>
+        </div>
+        <div class="sitemap-column">
+          <h3>البيانات</h3>
+          <ul>
+            <li><a href="#">المؤشرات السياحية</a></li>
+            <li><a href="#">تقارير الأداء</a></li>
+          </ul>
+        </div>
+        <!-- ... الأقسام الأخرى ... -->
+      </div>
+    </div>
+  </section>
+
+  <!-- تذييل الصفحة -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p>© 2025 مركز المعلومات والتوثيق السياحي - ليبيا</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // JavaScript للقوائم المنسدلة
+    document.querySelectorAll('.dropdown').forEach(item => {
+      item.addEventListener('click', () => {
+        item.querySelector('.dropdown-menu').classList.toggle('show');
+      });
+    });
+  </script>
+</body>
+</html>
