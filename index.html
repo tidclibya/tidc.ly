@@ -4,487 +4,1102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مركز المعلومات والتوثيق السياحي - ليبيا</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
-        /* CSS Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        /* المتغيرات العامة */
         :root {
-            --primary: #0077b6;
-            --secondary: #00b4d8;
-            --dark-blue: #023e8a;
-            --light-blue: #f0faff;
-            --white: #ffffff;
-            --text: #333333;
+            --primary-color: #1a4569;
+            --primary-dark: #0f2d44;
+            --secondary-color: #f8f9fa;
+            --accent-color: #d4af37;
+            --accent-light: #f1e5b9;
         }
         
-        /* الأساسيات */
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Cairo', 'Tahoma', sans-serif;
             background-color: #f9f9f9;
-            color: var(--text);
-            line-height: 1.6;
+            overflow-x: hidden;
         }
         
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
+        /* شريط التنقل */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+            padding: 12px 0;
+            transition: all 0.3s ease;
         }
         
-        /* الشريط العلوي */
-        header {
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            padding: 15px 0;
-        }
-        
-        .header-content {
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
         }
         
         .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-        
-        .logo img {
             height: 50px;
+            width: auto;
             margin-left: 10px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
         
-        .logo-text {
-            color: var(--dark-blue);
-            font-weight: 700;
-            font-size: 1.2rem;
+        .nav-link {
+            font-weight: 600;
+            margin: 0 5px;
+            position: relative;
+            transition: all 0.3s;
         }
         
-        nav ul {
-            display: flex;
-            list-style: none;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
         }
         
-        nav ul li {
-            margin-right: 20px;
+        .nav-link:hover::after {
+            width: 100%;
         }
         
-        nav ul li a {
-            text-decoration: none;
-            color: var(--dark-blue);
-            font-weight: 700;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-        
-        nav ul li a:hover {
-            background-color: var(--light-blue);
-            color: var(--primary);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark-blue);
-            cursor: pointer;
-        }
-        
-        /* القسم الرئيسي */
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: var(--white);
-            padding: 180px 0 100px;
+        /* قسم البطل */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            color: white;
+            padding: 150px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         
-        .hero h1 {
-            font-size: 2.8rem;
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.05"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /></svg>');
+            background-size: 200px;
+            animation: rotate 300s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { background-position: 0 0; }
+            to { background-position: 1000px 1000px; }
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
             margin-bottom: 20px;
-            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
         }
         
-        .hero p {
-            font-size: 1.3rem;
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
             max-width: 800px;
-            margin: 0 auto 30px;
-            animation: fadeInUp 1s ease 0.3s forwards;
-            opacity: 0;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .btn {
-            display: inline-block;
-            background-color: var(--white);
-            color: var(--primary);
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
+        .search-box {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-box input {
+            padding: 20px 25px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
             font-size: 1.1rem;
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s ease 0.6s forwards;
-            opacity: 0;
         }
         
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .search-btn {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            height: calc(100% - 10px);
+            border-radius: 50px;
+            padding: 0 30px;
+            background: linear-gradient(135deg, var(--accent-color) 0%, #e6c158 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
         }
         
-        /* قسم الخدمات */
-        .services {
-            padding: 80px 0;
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* الخدمات */
+        .services-section {
+            padding: 100px 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.03"><rect x="0" y="0" width="100" height="100" fill="%231a4569" /></svg>');
+            background-size: 300px;
         }
         
         .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            color: var(--dark-blue);
-            font-size: 2.2rem;
             position: relative;
+            margin-bottom: 60px;
+            font-weight: 700;
+            text-align: center;
+            color: var(--primary-dark);
         }
         
         .section-title::after {
             content: '';
-            display: block;
+            position: absolute;
+            bottom: -15px;
+            right: 50%;
+            transform: translateX(50%);
             width: 80px;
             height: 4px;
-            background: var(--secondary);
-            margin: 15px auto;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
             border-radius: 2px;
         }
         
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        .service-card {
+            transition: all 0.4s ease;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            height: 100%;
+            background: white;
+            position: relative;
+            z-index: 1;
         }
         
-        .service-card {
-            background: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: -1;
         }
         
         .service-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-card:hover::before {
+            height: 100%;
+            opacity: 1;
+        }
+        
+        .service-card:hover .service-icon,
+        .service-card:hover .card-title,
+        .service-card:hover .card-text,
+        .service-card:hover .btn {
+            color: white;
+        }
+        
+        .service-card:hover .btn {
+            border-color: white;
         }
         
         .service-icon {
-            background: var(--light-blue);
-            text-align: center;
-            padding: 30px;
-            font-size: 2.5rem;
-            color: var(--primary);
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
         }
         
-        .service-content {
-            padding: 25px;
-        }
-        
-        .service-content h3 {
-            color: var(--dark-blue);
+        .service-card .card-title {
+            font-weight: 700;
             margin-bottom: 15px;
-            font-size: 1.4rem;
+            transition: all 0.4s ease;
+            color: var(--primary-dark);
         }
         
-        /* الفوتر المعدل حسب طلبك */
-        footer {
-            background: linear-gradient(to right, var(--dark-blue), var(--primary));
-            color: var(--white);
-            padding: 40px 0 20px;
+        .service-card .card-text {
+            transition: all 0.4s ease;
+            margin-bottom: 25px;
+        }
+        
+        .service-card .btn {
+            transition: all 0.4s ease;
+            border-radius: 50px;
+            padding: 8px 25px;
+            font-weight: 600;
+        }
+        
+        /* قسم الإحصاءات */
+        .stats-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.05"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /></svg>');
+            background-size: 200px;
+        }
+        
+        .stat-item {
             text-align: center;
+            padding: 20px;
+            position: relative;
         }
         
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
         }
         
-        .footer-logo {
-            margin-bottom: 20px;
+        .stat-text {
+            font-size: 1.2rem;
+            font-weight: 600;
         }
         
-        .footer-logo img {
-            height: 60px;
+        /* قسم الذكاء الاصطناعي */
+        .ai-section {
+            padding: 100px 0;
+            background-color: white;
         }
         
-        .footer-info {
-            margin-bottom: 20px;
-            line-height: 1.8;
+        .ai-content {
+            position: relative;
         }
         
-        .footer-info p {
-            margin: 5px 0;
+        .ai-image {
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: all 0.5s ease;
+        }
+        
+        .ai-image:hover {
+            transform: perspective(1000px) rotateY(0);
+        }
+        
+        .ai-feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .ai-feature-list li {
+            margin-bottom: 15px;
+            padding-right: 30px;
+            position: relative;
             font-size: 1.1rem;
         }
         
-        .credits {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 0.9rem;
+        .ai-feature-list li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            background: var(--accent-light);
+            color: var(--primary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
         }
         
-        .social-links {
-            margin: 20px 0;
+        .ai-btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            border: none;
+            color: white;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(26, 69, 105, 0.3);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
         }
         
-        .social-links a {
+        .ai-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 69, 105, 0.4);
+        }
+        
+        .ai-btn i {
+            margin-left: 10px;
+        }
+        
+        /* قسم الأخبار */
+        .news-section {
+            padding: 100px 0;
+            background: linear-gradient(to bottom, white 0%, #f8f9fa 100%);
+        }
+        
+        .news-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .news-image {
+            height: 220px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .news-card:hover .news-image {
+            transform: scale(1.05);
+        }
+        
+        .news-date {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .news-title {
+            font-weight: 700;
+            color: var(--primary-dark);
+            transition: all 0.3s;
+        }
+        
+        .news-card:hover .news-title {
+            color: var(--primary-color);
+        }
+        
+        /* معرض الصور */
+        .gallery-section {
+            padding: 80px 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.03"><rect x="0" y="0" width="100" height="100" fill="%231a4569" /></svg>');
+            background-size: 300px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-8px);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 70px 0 30px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.05"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /></svg>');
+            background-size: 200px;
+        }
+        
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
             display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+        
+        .footer-contact li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-contact i {
+            margin-left: 12px;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             width: 40px;
             height: 40px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             color: white;
-            margin: 0 5px;
-            line-height: 40px;
+            margin-left: 10px;
             transition: all 0.3s;
         }
         
-        .social-links a:hover {
-            background: var(--secondary);
+        .social-icons a:hover {
+            background: var(--accent-color);
             transform: translateY(-3px);
         }
         
-        /* تأثيرات الحركة */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 25px;
+            margin-top: 50px;
         }
         
-        /* التجاوب */
+        /* مساعد الذكاء الاصطناعي */
+        .ai-chatbot {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(26, 69, 105, 0.4);
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+        
+        .ai-chatbot:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(26, 69, 105, 0.5);
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 8px 25px rgba(26, 69, 105, 0.4); }
+            50% { box-shadow: 0 8px 25px rgba(26, 69, 105, 0.8); }
+            100% { box-shadow: 0 8px 25px rgba(26, 69, 105, 0.4); }
+        }
+        
+        .ai-icon {
+            color: var(--accent-color);
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        /* تأثيرات التمرير */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
         @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.3rem;
+            .hero-title {
+                font-size: 2.8rem;
             }
             
-            .hero p {
-                font-size: 1.1rem;
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .ai-image {
+                transform: none;
+                margin-bottom: 40px;
             }
         }
         
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            nav {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                width: 80%;
-                height: calc(100vh - 80px);
-                background: var(--white);
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-                transition: all 0.3s ease;
-            }
-            
-            nav.active {
-                right: 0;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                padding: 20px;
-            }
-        
-            nav ul li {
-                margin: 10px 0;
-            }
-            
-            nav ul li a {
-                display: block;
-                padding: 15px;
-            }
-            
-            .hero {
-                padding: 150px 0 80px;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero h1 {
-                font-size: 1.8rem;
+            .hero-title {
+                font-size: 2.3rem;
             }
             
             .section-title {
                 font-size: 1.8rem;
             }
             
-            .footer-info p {
-                font-size: 1rem;
+            .stat-number {
+                font-size: 2.8rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .logo {
+                height: 40px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- الشريط العلوي -->
-    <header>
+    <!-- شريط التنقل -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">
-                   <img src="https://github.com/tidclibya/tidc.ly/blob/main/tidclogo.png" alt="شعار المركز">
-                    <span class="logo-text">مركز المعلومات والتوثيق السياحي</span>
-                </a>
-                
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <nav>
-                    <ul>
+            <a class="navbar-brand" href="#">
+                <img src="https://github.com/tidclibya/tidc.ly/blob/main/tidclogo.png" alt="شعار المركز" class="logo me-2">
+                TIDCLIBYA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">عن المركز</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="studiesDropdown" role="button" data-bs-toggle="dropdown">
+                            الدراسات السياحية
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">الدراسات والأبحاث</a></li>
+                            <li><a class="dropdown-item" href="#">الإحصاءات السياحية</a></li>
+                            <li><a class="dropdown-item" href="#">تقارير الأداء</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown">
+                            الخدمات الإلكترونية
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">خدمات السياح</a></li>
+                            <li><a class="dropdown-item" href="#">خدمات مقدمي الخدمات</a></li>
+                            <li><a class="dropdown-item" href="#">خدمات الباحثين</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">الخارطة السياحية</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="publicationsDropdown" role="button" data-bs-toggle="dropdown">
+                            الاصدارات والمطبوعات
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">النشرات الدورية</a></li>
+                            <li><a class="dropdown-item" href="#">الكتيبات الإرشادية</a></li>
+                            <li><a class="dropdown-item" href="#">الخرائط السياحية</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">البيانات التاريخية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">اتصل بنا</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <div class="dropdown">
+                        <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="languageDropdown" data-bs-toggle="dropdown">
+                            <i class="fas fa-globe me-1"></i> العربية
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                            <li><a class="dropdown-item" href="#">Italiano</a></li>
+                            <li><a class="dropdown-item" href="#">Français</a></li>
+                            <li><a class="dropdown-item" href="#">Deutsch</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- قسم البطل -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title animate__animated animate__fadeInDown">مركز المعلومات والتوثيق السياحي الليبي</h1>
+            <p class="hero-subtitle animate__animated animate__fadeIn animate__delay-1s">بوابتك الشاملة للمعلومات والخدمات السياحية في ليبيا، نقدم لكم أحدث الدراسات والإحصاءات والخدمات الذكية</p>
+            <div class="mt-5 animate__animated animate__fadeInUp animate__delay-2s">
+                <div class="search-box">
+                    <input type="text" class="form-control" placeholder="ابحث عن معلومات سياحية، دراسات، إحصاءات..." aria-label="ابحث عن معلومات سياحية">
+                    <button class="search-btn">
+                        <i class="fas fa-search me-2"></i> بحث
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الخدمات الرئيسية -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title reveal">خدماتنا الرئيسية</h2>
+            <div class="row g-4">
+                <div class="col-md-4 reveal">
+                    <div class="service-card card">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <h3 class="card-title">الدراسات السياحية</h3>
+                            <p class="card-text">أبحاث ودراسات متخصصة في القطاع السياحي الليبي لتطوير وتنمية الصناعة السياحية.</p>
+                            <a href="#" class="btn btn-outline-primary">استكشف المزيد</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="service-card card">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h3 class="card-title">الخدمات الإلكترونية</h3>
+                            <p class="card-text">خدمات إلكترونية متكاملة لتسهيل الوصول إلى المعلومات والخدمات السياحية.</p>
+                            <a href="#" class="btn btn-outline-primary">استكشف المزيد</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="service-card card">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3 class="card-title">مركز الاتصال الذكي</h3>
+                            <p class="card-text">خدمة اتصال مدعومة بالذكاء الاصطناعي للإجابة على استفساراتكم على مدار الساعة.</p>
+                            <a href="#" class="btn btn-outline-primary">استكشف المزيد</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="service-card card">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <h3 class="card-title">الخارطة السياحية</h3>
+                            <p class="card-text">خريطة تفاعلية شاملة للمواقع والمسارات السياحية في مختلف أنحاء ليبيا.</p>
+                            <a href="#" class="btn btn-outline-primary">استكشف المزيد</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="service-card card">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3 class="card-title">الاصدارات والمطبوعات</h3>
+                            <p class="card-text">إصدارات ومطبوعات متنوعة تشمل أدلة سياحية ونشرات إعلامية وتقارير متخصصة.</p>
+                            <a href="#" class="btn btn-outline-primary">استكشف المزيد</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="service-card card">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="card-title">خدمة الباحثين والطلبة</h3>
+                            <p class="card-text">دعم خاص للباحثين والطلبة في الحصول على المعلومات والبيانات اللازمة لأبحاثهم.</p>
+                            <a href="#" class="btn btn-outline-primary">استكشف المزيد</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الإحصاءات -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title text-white reveal">الإحصاءات والمؤشرات السياحية</h2>
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-4 reveal">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="2.1">0</div>
+                        <div class="stat-text">مليون زائر سنوياً</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4 reveal">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="350">0</div>
+                        <div class="stat-text">موقع تراثي وسياحي</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4 reveal">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="120">0</div>
+                        <div class="stat-text">ألف فرصة عمل سياحية</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4 reveal">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="18">0</div>
+                        <div class="stat-text">نمو القطاع السنوي</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم مركز الاتصال AI -->
+    <section class="ai-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 reveal">
+                    <h2 class="section-title">مركز الاتصال بالذكاء الاصطناعي</h2>
+                    <p class="lead mb-4">خدمة متطورة مدعومة بالذكاء الاصطناعي لتقديم الدعم والمعلومات السياحية على مدار الساعة</p>
+                    <ul class="ai-feature-list">
+                        <li>إجابات فورية على الاستفسارات</li>
+                        <li>دعم متعدد اللغات</li>
+                        <li>توجيه إلى الخدمات المناسبة</li>
+                        <li>معلومات دقيقة ومحدثة</li>
+                        <li>تحليل احتياجات الزوار</li>
+                        <li>توصيات مخصصة بناءً على التفضيلات</li>
+                    </ul>
+                    <button class="ai-btn mt-4">
+                        تحدث مع المساعد الافتراضي <i class="fas fa-comment-dots"></i>
+                    </button>
+                </div>
+                <div class="col-lg-6 reveal">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="مركز الاتصال AI" class="img-fluid ai-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الأخبار والتحديثات -->
+    <section class="news-section">
+        <div class="container">
+            <h2 class="section-title reveal">أحدث الأخبار والتحديثات</h2>
+            <div class="row g-4">
+                <div class="col-md-4 reveal">
+                    <div class="news-card card">
+                        <div class="overflow-hidden">
+                            <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_76eea6ed681b4194b4d256a3242ab6df~mv2%20(1).avif" class="card-img-top news-image" alt="خبر 1">
+                        </div>
+                        <div class="card-body">
+                            <div class="news-date">15 أكتوبر 2023</div>
+                            <h5 class="news-title">إطلاق الخريطة السياحية التفاعلية الجديدة</h5>
+                            <p class="card-text">أطلق المركز النسخة الجديدة من الخريطة السياحية التفاعلية التي تغرب كافة مناطق ليبيا.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">اقرأ المزيد</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="news-card card">
+                        <div class="overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top news-image" alt="خبر 2">
+                        </div>
+                        <div class="card-body">
+                            <div class="news-date">5 أكتوبر 2023</div>
+                            <h5 class="news-title">تقرير الإحصاءات السياحية للربع الثالث 2023</h5>
+                            <p class="card-text">أصدر المركز التقرير الإحصائي للحركة السياحية في ليبيا للربع الثالث من عام 2023.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">اقrأ المزيد</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="news-card card">
+                        <div class="overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top news-image" alt="خبر 3">
+                        </div>
+                        <div class="card-body">
+                            <div class="news-date">1 أكتوبر 2023</div>
+                            <h5 class="news-title">ورشة عمل حول تطوير الدراسات السياحية</h5>
+                            <p class="card-text">ينظم المركز ورشة عمل حول منهجيات إعداد الدراسات السياحية يوم 25 أكتوبر القادم.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">اقرأ المزيد</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- معرض صور ليبيا السياحية -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title reveal">معرض ليبيا السياحية</h2>
+            <div class="row">
+                <div class="col-md-3 col-6 reveal">
+                    <div class="gallery-item">
+                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_22417b9d75b54667a468d36ebe8cc12b~mv2.webp" alt="صورة سياحية 1">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 reveal">
+                    <div class="gallery-item">
+                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_44822d76c8a9494f851382e222935551~mv2.webp" alt="صورة سياحية 2">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 reveal">
+                    <div class="gallery-item">
+                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_66e80a224da145eb8afda466f1383921~mv2.avif" alt="صورة سياحية 3">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 reveal">
+                    <div class="gallery-item">
+                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_932914bc7b4845e3b300b424cad83ecb~mv2.avif" alt="صورة سياحية 4">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 reveal">
+                    <div class="gallery-item">
+                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_c3ca7ae27a64402b8252aa94d925bbfc~mv2.avif" alt="صورة سياحية 5">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 reveal">
+                    <div class="gallery-item">
+                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_cad084455def4cb8a5670e848bc3ca4b~mv2.avif" alt="صورة سياحية 6">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 reveal">
+                    <div class="gallery-item">
+                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/7.jpg" alt="صورة سياحية 7">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 reveal">
+                    <div class="gallery-item">
+                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/8.jpg" alt="صورة سياحية 8">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 reveal">
+                    <h5 class="footer-title">مركز المعلومات والتوثيق السياحي الليبي</h5>
+                    <p>مصدرك الموثوق للمعلومات والخدمات السياحية في ليبيا، نعمل على تطوير وتنمية القطاع السياحي من خلال تقديم المعلومات الدقيقة والخدمات المتطورة.</p>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 reveal">
+                    <h5 class="footer-title">روابط سريعة</h5>
+                    <ul class="footer-links">
                         <li><a href="#">الرئيسية</a></li>
-                        <li><a href="#">من نحن</a></li>
+                        <li><a href="#">عن المركز</a></li>
                         <li><a href="#">الخدمات</a></li>
-                        <li><a href="#">الإحصاءات</a></li>
-                        <li><a href="#">الأخبار</a></li>
+                        <li><a href="#">الخريطة السياحية</a></li>
                         <li><a href="#">اتصل بنا</a></li>
                     </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <!-- القسم الرئيسي -->
-    <section class="hero">
-        <div class="container">
-            <h1>مركز المعلومات والتوثيق السياحي</h1>
-            <p>نحو تحول رقمي للقطاع السياحي في ليبيا وتوفير بيانات دقيقة لدعم اتخاذ القرار</p>
-            <a href="#" class="btn">اكتشف المزيد</a>
-        </div>
-    </section>
-
-    <!-- قسم الخدمات -->
-    <section class="services">
-        <div class="container">
-            <h2 class="section-title">خدماتنا الرئيسية</h2>
-            
-            <div class="services-grid">
-                <!-- خدمة 1 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>البيانات السياحية</h3>
-                        <p>جمع وتحليل البيانات السياحية وتوفيرها لمتخذي القرار والباحثين</p>
-                    </div>
                 </div>
-                
-                <!-- خدمة 2 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-map-marked-alt"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>الأطلس السياحي</h3>
-                        <p>توفير خرائط تفاعلية للمواقع السياحية والأثرية في ليبيا</p>
-                    </div>
+                <div class="col-lg-3 col-md-4 mb-4 reveal">
+                    <h5 class="footer-title">الخدمات</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">الدراسات السياحية</a></li>
+                        <li><a href="#">الخدمات الإلكترونية</a></li>
+                        <li><a href="#">مركز الاتصال AI</a></li>
+                        <li><a href="#">الاصدارات والمطبوعات</a></li>
+                        <li><a href="#">خدمة الباحثين</a></li>
+                    </ul>
                 </div>
-                
-                <!-- خدمة 3 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>التقارير والإحصاءات</h3>
-                        <p>إصدار تقارير دورية عن الحركة السياحية والمؤشرات الرئيسية</p>
-                    </div>
-                </div>
-                
-                <!-- خدمة 4 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>الذكاء الاصطناعي</h3>
-                        <p>استخدام تقنيات الذكاء الاصطناعي للتنبؤ بالاتجاهات السياحية</p>
+                <div class="col-lg-3 col-md-4 mb-4 reveal">
+                    <h5 class="footer-title">اتصل بنا</h5>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> طرابلس، ليبيا</li>
+                        <li><i class="fas fa-phone"></i> 555-1234</li>
+                        <li><i class="fas fa-envelope"></i> info@tidclibya.ly</li>
+                    </ul>
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- الفوتر المعدل حسب طلبك -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="assets/images/logo.png" alt="شعار المركز">
-            </div>
-            
-            <div class="footer-info">
-                <p>دولة ليبيا</p>
-                <p>وزارة السياحة والصناعات التقليدية</p>
-                <p>مركز المعلومات والتوثيق السياحي</p>
-            </div>
-            
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-            
-            <div class="credits">
-                <p>جميع الحقوق محفوظة &copy; مركز المعلومات والتوثيق السياحي 2025</p>
-                <p>تصميم وبرمجة | TIDC Libya</p>
+            <div class="copyright text-center reveal">
+                <p class="mb-0">© 2023 مركز المعلومات والتوثيق السياحي الليبي. جميع الحقوق محفوظة.</p>
+                <div class="mt-2">
+                    <a href="#" class="text-white text-decoration-none me-3">سياسة الخصوصية</a>
+                    <a href="#" class="text-white text-decoration-none">شروط الاستخدام</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- مساعد الذكاء الاصطناعي -->
+    <div class="ai-chatbot">
+        <i class="fas fa-robot ai-icon"></i>
+        <span>مساعد افتراضي</span>
+    </div>
+
+    <!-- Bootstrap & jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-        // قائمة الجوال
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const nav = document.querySelector('nav');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            nav.classList.toggle('active');
-        });
-        
-        // إغلاق القائمة عند النقر على رابط
-        const navLinks = document.querySelectorAll('nav ul li a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                nav.classList.remove('active');
+        // كود للتبديل بين اللغات
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = this.textContent;
+                document.querySelector('.btn-outline-light .fas').nextSibling.textContent = ` ${lang}`;
+                
+                // هنا يمكن إضافة منطق تغيير اللغة الفعلي
+                if (lang === 'English') {
+                    document.documentElement.dir = 'ltr';
+                    document.documentElement.lang = 'en';
+                    // تغيير النصوص إلى الإنجليزية
+                } else if (lang === 'Italiano') {
+                    // تغيير إلى الإيطالية
+                } // وهكذا للغات الأخرى
             });
         });
         
-        // تأثير التمرير
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            header.classList.toggle('sticky', window.scrollY > 0);
+        // كود لتفعيل مساعد الذكاء الاصطناعي
+        document.querySelector('.ai-chatbot').addEventListener('click', function() {
+            alert('سيتم فتح نافذة الدردشة مع المساعد الافتراضي. هذه الميزة قيد التطوير.');
+            // هنا يمكن إضافة منطق فتح نافذة الدردشة
+        });
+        
+        // تأثيرات التمرير
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        
+        window.addEventListener("scroll", reveal);
+        reveal();
+        
+        // عدادات الإحصاءات
+        function animateCounters() {
+            $('.stat-number').each(function () {
+                $(this).prop('Counter', 0).animate({
+                    Counter: $(this).data('count')
+                }, {
+                    duration: 2000,
+                    easing: 'swing',
+                    step: function (now) {
+                        if ($(this).data('count') % 1 === 0) {
+                            $(this).text(Math.ceil(now));
+                        } else {
+                            $(this).text(now.toFixed(1));
+                        }
+                    }
+                });
+            });
+        }
+        
+        // تفعيل العدادات عند التمرير إليها
+        var counted = false;
+        $(window).scroll(function() {
+            var oTop = $('.stats-section').offset().top - window.innerHeight;
+            if (!counted && $(window).scrollTop() > oTop) {
+                animateCounters();
+                counted = true;
+            }
+        });
+        
+        // تأثيراتnavbar عند التمرير
+        $(window).scroll(function() {
+            if ($(window).scrollTop() > 50) {
+                $('.navbar').addClass('shadow-lg');
+            } else {
+                $('.navbar').removeClass('shadow-lg');
+            }
         });
     </script>
 </body>
