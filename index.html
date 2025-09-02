@@ -73,7 +73,7 @@
         
         /* قسم البطل */
         .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') no-repeat center center;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://github.com/tidclibya/tidc.ly/blob/main/12.jpg') no-repeat center center;
             background-size: cover;
             background-attachment: fixed;
             color: white;
@@ -590,6 +590,16 @@
             transform: translateY(0);
         }
         
+        /* تحسينات إضافية للصور */
+        .img-placeholder {
+            background: linear-gradient(135deg, #f1e5b9 0%, #d4af37 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-dark);
+            font-weight: bold;
+        }
+        
         /* Responsive */
         @media (max-width: 992px) {
             .hero-title {
@@ -626,6 +636,10 @@
             .logo {
                 height: 40px;
             }
+            
+            .gallery-item img {
+                height: 200px;
+            }
         }
     </style>
 </head>
@@ -634,7 +648,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="https://github.com/tidclibya/tidc.ly/blob/main/tidclogo.png" alt="شعار المركز" class="logo me-2">
+                <img src="https://raw.githubusercontent.com/tidclibya/tidc.ly/main/tidclogo.png" alt="شعار المركز" class="logo me-2">
                 TIDCLIBYA
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -869,7 +883,7 @@
                 <div class="col-md-4 reveal">
                     <div class="news-card card">
                         <div class="overflow-hidden">
-                            <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_76eea6ed681b4194b4d256a3242ab6df~mv2%20(1).avif" class="card-img-top news-image" alt="خبر 1">
+                            <img src="https://raw.githubusercontent.com/tidclibya/tidc.ly/main/66bd8a_76eea6ed681b4194b4d256a3242ab6df~mv2%20(1).avif" class="card-img-top news-image" alt="خبر 1" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'">
                         </div>
                         <div class="card-body">
                             <div class="news-date">15 أكتوبر 2023</div>
@@ -888,19 +902,19 @@
                             <div class="news-date">5 أكتوبر 2023</div>
                             <h5 class="news-title">تقرير الإحصاءات السياحية للربع الثالث 2023</h5>
                             <p class="card-text">أصدر المركز التقرير الإحصائي للحركة السياحية في ليبيا للربع الثالث من عام 2023.</p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">اقrأ المزيد</a>
+                            <a href="#" class="btn btn-sm btn-outline-primary">اقرأ المزيد</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 reveal">
                     <div class="news-card card">
                         <div class="overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top news-image" alt="خبر 3">
+                            <img src="https://github.com/tidclibya/tidc.ly/blob/main/STATSTISC.jpg" class="card-img-top news-image" alt="خبر 3">
                         </div>
                         <div class="card-body">
-                            <div class="news-date">1 أكتوبر 2023</div>
+                            <div class="news-date"> أكتوبر 2026</div>
                             <h5 class="news-title">ورشة عمل حول تطوير الدراسات السياحية</h5>
-                            <p class="card-text">ينظم المركز ورشة عمل حول منهجيات إعداد الدراسات السياحية يوم 25 أكتوبر القادم.</p>
+                            <p class="card-text">ينظم المركز ورشة عمل حول منهجيات إعداد الدراسات السياحية أكتوبر القادم.</p>
                             <a href="#" class="btn btn-sm btn-outline-primary">اقرأ المزيد</a>
                         </div>
                     </div>
@@ -916,42 +930,42 @@
             <div class="row">
                 <div class="col-md-3 col-6 reveal">
                     <div class="gallery-item">
-                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_22417b9d75b54667a468d36ebe8cc12b~mv2.webp" alt="صورة سياحية 1">
+                        <img src="https://raw.githubusercontent.com/tidclibya/tidc.ly/main/66bd8a_22417b9d75b54667a468d36ebe8cc12b~mv2.webp" alt="صورة سياحية 1" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'">
                     </div>
                 </div>
                 <div class="col-md-3 col-6 reveal">
                     <div class="gallery-item">
-                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_44822d76c8a9494f851382e222935551~mv2.webp" alt="صورة سياحية 2">
+                        <img src="https://raw.githubusercontent.com/tidclibya/tidc.ly/main/66bd8a_44822d76c8a9494f851382e222935551~mv2.webp" alt="صورة سياحية 2" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'">
                     </div>
                 </div>
                 <div class="col-md-3 col-6 reveal">
                     <div class="gallery-item">
-                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_66e80a224da145eb8afda466f1383921~mv2.avif" alt="صورة سياحية 3">
+                        <img src="https://raw.githubusercontent.com/tidclibya/tidc.ly/main/66bd8a_66e80a224da145eb8afda466f1383921~mv2.avif" alt="صورة سياحية 3" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'">
                     </div>
                 </div>
                 <div class="col-md-3 col-6 reveal">
                     <div class="gallery-item">
-                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_932914bc7b4845e3b300b424cad83ecb~mv2.avif" alt="صورة سياحية 4">
+                        <img src="https://raw.githubusercontent.com/tidclibya/tidc.ly/main/66bd8a_932914bc7b4845e3b300b424cad83ecb~mv2.avif" alt="صورة سياحية 4" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'">
                     </div>
                 </div>
                 <div class="col-md-3 col-6 reveal">
                     <div class="gallery-item">
-                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_c3ca7ae27a64402b8252aa94d925bbfc~mv2.avif" alt="صورة سياحية 5">
+                        <img src="https://raw.githubusercontent.com/tidclibya/tidc.ly/main/66bd8a_c3ca7ae27a64402b8252aa94d925bbfc~mv2.avif" alt="صورة سياحية 5" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'">
                     </div>
                 </div>
                 <div class="col-md-3 col-6 reveal">
                     <div class="gallery-item">
-                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/66bd8a_cad084455def4cb8a5670e848bc3ca4b~mv2.avif" alt="صورة سياحية 6">
+                        <img src="https://raw.githubusercontent.com/tidclibya/tidc.ly/main/66bd8a_cad084455def4cb8a5670e848bc3ca4b~mv2.avif" alt="صورة سياحية 6" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'">
                     </div>
                 </div>
                 <div class="col-md-3 col-6 reveal">
                     <div class="gallery-item">
-                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/7.jpg" alt="صورة سياحية 7">
+                        <img src="https://raw.githubusercontent.com/tidclibya/tidc.ly/main/7.jpg" alt="صورة سياحية 7" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'">
                     </div>
                 </div>
                 <div class="col-md-3 col-6 reveal">
                     <div class="gallery-item">
-                        <img src="https://github.com/tidclibya/tidc.ly/blob/main/8.jpg" alt="صورة سياحية 8">
+                        <img src="https://raw.githubusercontent.com/tidclibya/tidc.ly/main/8.jpg" alt="صورة سياحية 8" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'">
                     </div>
                 </div>
             </div>
