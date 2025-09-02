@@ -286,6 +286,123 @@
             font-weight: 600;
         }
         
+        /* قسم المؤشرات */
+        .indicators-section {
+            padding: 100px 0;
+            background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .indicator-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .indicator-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .indicator-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .indicator-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .indicator-header h3 {
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 0;
+        }
+
+        .indicator-progress {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .progress {
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            border-radius: 10px;
+            transition: width 1.5s ease-in-out;
+        }
+
+        .progress-value {
+            position: absolute;
+            left: 0;
+            top: -30px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .indicator-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .indicator-details p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .trend {
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .trend.up {
+            color: #28a745;
+        }
+
+        .trend.down {
+            color: #dc3545;
+        }
+
+        .trend i {
+            margin-left: 5px;
+        }
+
+        .section-subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* تأثيرات للشريط التقدمي عند الظهور */
+        .reveal .progress-bar {
+            width: 0 !important;
+        }
+
+        .reveal.active .progress-bar {
+            width: var(--final-width) !important;
+        }
+        
         /* قسم الذكاء الاصطناعي */
         .ai-section {
             padding: 100px 0;
@@ -614,6 +731,16 @@
                 transform: none;
                 margin-bottom: 40px;
             }
+            
+            .indicator-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .indicator-icon {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -639,6 +766,15 @@
             
             .gallery-item img {
                 height: 200px;
+            }
+            
+            .indicator-details {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .trend {
+                margin-top: 10px;
             }
         }
     </style>
@@ -849,7 +985,111 @@
         </div>
     </section>
 
-    <!-- قسم مركز الاتصال AI -->
+    <!-- قسم المؤشرات السياحية -->
+    <section class="indicators-section">
+        <div class="container">
+            <h2 class="section-title reveal">المؤشرات السياحية</h2>
+            <p class="section-subtitle text-center mb-5 reveal">أهم المؤشرات والإحصائيات التي تعكس حالة القطاع السياحي في ليبيا</p>
+            
+            <div class="row g-4">
+                <!-- مؤشر 1 -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="indicator-card">
+                        <div class="indicator-header">
+                            <div class="indicator-icon">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                            <h3>الإشغال الفندقي</h3>
+                        </div>
+                        <div class="indicator-progress">
+                            <div class="progress" style="height: 12px;">
+                                <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress-value">65%</div>
+                        </div>
+                        <div class="indicator-details">
+                            <p>متوسط نسبة الإشغال الفندقي خلال الربع الأخير</p>
+                            <span class="trend up"><i class="fas fa-arrow-up"></i> 5.2%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- مؤشر 2 -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="indicator-card">
+                        <div class="indicator-header">
+                            <div class="indicator-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <h3>الرحلات الجوية</h3>
+                        </div>
+                        <div class="indicator-progress">
+                            <div class="progress" style="height: 12px;">
+                                <div class="progress-bar" role="progressbar" style="width: 78%;" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress-value">78%</div>
+                        </div>
+                        <div class="indicator-details">
+                            <p>نسبة زيادة الرحلات الجوية السياحية لهذا العام</p>
+                            <span class="trend up"><i class="fas fa-arrow-up"></i> 12.7%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- مؤشر 3 -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="indicator-card">
+                        <div class="indicator-header">
+                            <div class="indicator-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>الزوار الدوليين</h3>
+                        </div>
+                        <div class="indicator-progress">
+                            <div class="progress" style="height: 12px;">
+                                <div class="progress-bar" role="progressbar" style="width: 55%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress-value">55%</div>
+                        </div>
+                        <div class="indicator-details">
+                            <p>نسبة الزيادة في أعداد الزوار الدوليين</p>
+                            <span class="trend up"><i class="fas fa-arrow-up"></i> 8.3%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- مؤشر 4 -->
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="indicator-card">
+                        <div class="indicator-header">
+                            <div class="indicator-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h3>رضا الزوار</h3>
+                        </div>
+                        <div class="indicator-progress">
+                            <div class="progress" style="height: 12px;">
+                                <div class="progress-bar" role="progressbar" style="width: 82%;" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress-value">4.1/5</div>
+                        </div>
+                        <div class="indicator-details">
+                            <p>معدل رضا الزوار عن الخدمات السياحية</p>
+                            <span class="trend up"><i class="fas fa-arrow-up"></i> 3.5%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5 reveal">
+                <a href="#" class="btn btn-primary btn-lg">
+                    <i class="fas fa-chart-line me-2"></i> عرض جميع المؤشرات
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الذكاء الاصطناعي -->
     <section class="ai-section">
         <div class="container">
             <div class="row align-items-center">
@@ -1113,6 +1353,32 @@
                 $('.navbar').addClass('shadow-lg');
             } else {
                 $('.navbar').removeClass('shadow-lg');
+            }
+        });
+        
+        // تهيئة المؤشرات عند التمرير إليها
+        function initIndicators() {
+            $('.indicator-progress .progress-bar').each(function() {
+                var finalWidth = $(this).attr('aria-valuenow') + '%';
+                $(this).css('--final-width', finalWidth);
+            });
+        }
+
+        // تفعيل المؤشرات عند التمرير
+        var indicatorsInitialized = false;
+        $(window).scroll(function() {
+            var oTop = $('.indicators-section').offset().top - window.innerHeight;
+            if (!indicatorsInitialized && $(window).scrollTop() > oTop) {
+                initIndicators();
+                indicatorsInitialized = true;
+            }
+        });
+
+        // التأكد من تهيئة المؤشرات إذا كان القسم مرئيًا عند التحميل
+        $(document).ready(function() {
+            if ($('.indicators-section').visible(true)) {
+                initIndicators();
+                indicatorsInitialized = true;
             }
         });
     </script>
